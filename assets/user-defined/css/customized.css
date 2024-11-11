@@ -1,0 +1,98 @@
+/* Override Bootstrap primary color */
+:root {
+    --bs-primary-custom: #AB886D;
+}
+
+.coffee-splash {
+    background-image: url('../../images/Splash-removebg-preview.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+@media (max-width: 767.98px) {
+    .coffee-splash {
+        display: none;
+    }
+}
+
+.text-primary {
+    color: var(--bs-primary-custom) !important;
+}
+
+.text-secondary-custom {
+    color: #6D90AB !important;
+}
+
+.nav-link,
+.bolder {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--bs-dark);
+
+}
+
+
+.is-rounder {
+    border-radius: 10px !important;
+
+}
+
+.has-card-darker {
+    background-color: #B4957D;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+
+.has-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.has-card-slight-darker {
+    background-color: #886DAB;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+
+.has-card-secondary-custom {
+    background-color: #AB6D90 !important;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+.btn-secondary-custom {
+    background-color: #6DAB88 !important;
+}
+
+
+.btn-primary-custom {
+    background-color: var(--bs-primary-custom);
+    border-color: var(--bs-primary-custom);
+}
+
+.bg-primary-custom {
+    background-color: var(--bs-primary-custom) !important;
+    border-color: var(--bs-primary-custom) !important;
+}
+
+.btn-secondary-custom {
+    background-color: #6DAB88 !important;
+}
+
+.bg-secondary-custom {
+    background-color: #6DAB88 !important;
+}
+
+
+
+
+.border-bottom-primary-custom {
+    border-bottom: 2px solid var(--bs-primary-custom) !important;
+}
+
+.btn-primary-custom:hover {
+    background-color: darken(var(--bs-primary-custom), 10%);
+    border-color: darken(var(--bs-primary-custom), 10%);
+}
