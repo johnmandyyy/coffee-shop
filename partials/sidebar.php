@@ -8,25 +8,24 @@
 
         <div class="text-center">
             <h1 class="display-3"><i class="fa-solid fa-circle-user"></i></h1>
-            <p class="lead">Welcome, {{ request.user }}!</p>
+            <p class="lead">Welcome {{ is_admin === 0 ? 'User': 'Admin' }}</p>
         </div>
 
         <ul class="navbar-nav">
 
-
-            <li class="nav-item">
-                <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/profile.php">
+            <li v-if="is_admin === 1" class="nav-item">
+                <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/admin.php">
                     <i class="fa-solid fa-gauge p-3"></i>Admin Dashboard(s)
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li v-if="is_admin === 1" class="nav-item">
                 <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/orders.php">
                     <i class="fa-solid fa-burger-soda p-3"></i>Order(s)
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li v-if="is_admin === 1" class="nav-item">
                 <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/inventory.php">
                     <i class="fa-solid fa-shelves-empty p-3"></i>Inventory and Stock(s)
                 </a>
@@ -53,3 +52,31 @@
         </ul>
     </div>
 </div>
+
+</html>
+
+
+<script>
+
+    new Vue({
+        el: "#offcanvasNavbar",
+        data: {
+            "is_admin": 0
+        },
+        computed: {},
+        watch: {},
+        mounted() {
+            this.getMission()
+        },
+        methods: {
+            async getMission() {
+                const url = '/coffee-shop/api/fetch.php?table=register'
+                const result = await axios.get(url)
+                if (result) {
+                    this.is_admin = result.data[0].is_admin
+                }
+            }
+        },
+    });
+
+</script>

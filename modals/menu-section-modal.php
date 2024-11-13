@@ -82,14 +82,15 @@
                 </p>
 
                 <p class="text-normal mb-2 pb-2">Payment Method(s): *</p>
-                {{ loyalty_flag === 1 }} {{ is_free_flag }}
+
                 <select class="form-control mb-2" v-model="mode_of_payment">
 
-                    <option value="0" :hidden="loyalty_flag === 1 && is_free_flag === true">Cash</option>
-                    <option value="1" :hidden="loyalty_flag === 1 && is_free_flag === true">QR PH</option>
-                    <option value="-1"
-                        :hidden="(loyalty_flag === 1 && is_free_flag === false) || (loyalty_flag === 0 && is_free_flag === false)">
-                        Free Item</option>
+                    <option value="0" :hidden="loyalty_flag === '1' && is_free_flag === true">Cash</option>
+                    <option value="1" :hidden="loyalty_flag === '1' && is_free_flag === true">QR PH</option>
+                    <!-- Only render this option if the condition is false -->
+                    <option
+                        v-if="!(loyalty_flag === '1' && is_free_flag === false) && !(loyalty_flag === '0' && is_free_flag === false)"
+                        value="-1">Free Item</option>
 
                 </select>
 

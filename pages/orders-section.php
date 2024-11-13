@@ -16,6 +16,7 @@
                         <table class="table" id="table_history">
                             <thead>
                                 <tr>
+                                    <th>Transaction Header ID</th>
                                     <th>Date</th>
                                     <th>Name</th>
                                     <th>Address</th>
@@ -31,7 +32,7 @@
 
 
                                 <tr v-for="data in history">
-
+                                    <td class="fw-bold">{{ data.id }}</td>
                                     <td class="fw-bold">{{ data.dot }}</td>
                                     <td class="text-muted">{{ data.name }}</td>
                                     <td class="text-muted">{{ data.address }}</td>
@@ -42,6 +43,9 @@
                                         </span>
                                         <span v-if="data.ref_id === '-1'">
                                             FREE ITEM CLAIMED
+                                        </span>
+                                        <span v-if="data.ref_id !== '-1' && data.ref_id !== null">
+                                            {{ data.ref_id }}
                                         </span>
                                     </td>
                                     <td class="text-muted">{{ data.mode_of_pickup === 1 ? 'Delivery' : 'Pickup' }}</td>

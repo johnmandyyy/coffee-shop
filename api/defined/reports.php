@@ -47,6 +47,7 @@ BETWEEN CURDATE() - INTERVAL 365 DAY AND CURDATE();";
 
 
     http_response_code(200);
+
     echo json_encode([
         "daily_sales" => implode($_DAILY_SALE[0]),
         "weekly_sales" => implode($_WEEKLY_SALE[0]),
@@ -56,7 +57,7 @@ BETWEEN CURDATE() - INTERVAL 365 DAY AND CURDATE();";
     ]);
 
 } else {
-    http_response_code(400);
+    http_response_code(response_code: 400);
     echo json_encode([
         "message" => "Only GET method is allowed."
     ]);

@@ -19,8 +19,8 @@ try {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         // Verify the password
         if (password_verify($data['password'], $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
 
+            $_SESSION['user_id'] = $user['id'];
             http_response_code(200);
             echo json_encode([
                 "message" => "Login successful."

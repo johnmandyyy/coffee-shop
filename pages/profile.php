@@ -23,7 +23,8 @@ include 'header.php';
                 "last_name": null,
                 "mobile": null,
                 "address": null,
-                "message": ""
+                "message": "",
+                "loyalty_flag": 0
             },
             computed: {},
             watch: {},
@@ -61,11 +62,13 @@ include 'header.php';
                     })
 
                     if (result) {
+
                         this.first_name = result.data[0].first_name
                         this.last_name = result.data[0].last_name
                         this.address = result.data[0].address
                         this.mobile = result.data[0].mobile
                         this.doj = result.data[0].created_at
+                        this.loyalty_flag = result.data[0].loyalty_flag
                     }
 
                     return result

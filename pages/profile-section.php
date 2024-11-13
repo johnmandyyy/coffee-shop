@@ -18,7 +18,8 @@
             </div>
 
             <div class="card-body text-center">
-                <h1 class="display-6 fw-bold">Not Yet Activated</h1>
+                <h1 v-if="loyalty_flag === 1" class="display-6 fw-bold">You can claim your free item!</h1>
+                <h1 v-if="loyalty_flag === 0" class="display-6 fw-bold">Not Yet Activated</h1>
                 <p class="lead  fw-bold text-muted">Minimum of 10 order(s)</p>
             </div>
         </div>

@@ -19,8 +19,6 @@ include 'header.php';
                 </h1>
                 <p class="lead fw-normal">Here you can manage the stock(s) of inventory and price(s).</p>
 
-
-
                 <div class="card mt-4">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -70,7 +68,14 @@ include 'header.php';
                                             <button class="btn btn-dark lg" @click="updateItem(data)">
                                                 <i class="fa-solid fa-eye"></i> Update Item
                                             </button>
+
+                                            <button class="btn btn-dark lg" @click="setFreeItem(data)">
+                                                <i class="fa-solid fa-award"></i> Set as Free Item
+                                            </button>
+
                                         </td>
+
+
 
                                     </tr>
                                 </tbody>
@@ -99,7 +104,8 @@ include 'header.php';
                 "last_name": null,
                 "inventory": [],
                 "active_item": {},
-                "message": ""
+                "message": "",
+                "free_item": []
             },
             computed: {},
             watch: {},
@@ -109,6 +115,33 @@ include 'header.php';
             },
 
             methods: {
+
+                async getFreeItem() {
+
+                    const url = '/coffee-shop/api/fetch.php?table=free_item'
+                    const result = await axios.get(url)
+
+                    if (result) {
+                        this.free_item = result.data
+                    }
+
+                },
+
+                async setFreeItem(prop) {
+
+                    const url = '/coffee-shop/api/patch.php/1/?table=free_item'
+                    const result = await axios.patch(url, {
+                        "debitable_id": prop.id,
+                        "item_name": prop.item
+                    })
+
+                    if (result) {
+                        this.message = 'You have set ' + prop.item + ' as a free item to your loyal customers'
+                        openModal('universal_modal')
+                    }
+
+                },
+
                 updateItem(prop) {
                     console.log(prop)
                     this.active_item = prop

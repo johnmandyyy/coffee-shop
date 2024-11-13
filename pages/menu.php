@@ -49,6 +49,7 @@ include 'header.php';
             "list_of_frappe": [],
             "list_of_milktea": [],
             "previous_history": [],
+            "recommendation_history": [],
 
             "is_iced_or_hot": null, // Used for Decision in Modal
             "available_add_ons": [],
@@ -62,7 +63,7 @@ include 'header.php';
             "mode_of_payment": 0,
             "mode_of_order": 0,
             "qr_ph_reference": null,
-            "loyalty_flag": 0,
+            "loyalty_flag": "0",
             "free_item": [],
             "is_free_flag": false
         },
@@ -106,6 +107,7 @@ include 'header.php';
             }
         },
         mounted() {
+            this.getRecommendations()
             this.getUserDetails()
             this.getFlags()
             this.getFreeItem()
@@ -136,7 +138,7 @@ include 'header.php';
                 const url = '/coffee-shop/api/defined/get_flags.php?id=' + String(user.data.id)
                 const result = await axios.get(url)
                 if (result.status === 200) {
-                    this.loyalty_flag = result.data.loyalty_flag
+                    this.loyalty_flag = String(result.data.loyalty_flag)
                     return result
                 }
 
@@ -158,6 +160,17 @@ include 'header.php';
                     setTimeout(() => {
                         new DataTable('#previous_history');
                     }, 0);
+                }
+
+            },
+
+            async getRecommendations() {
+
+                const url = '/coffee-shop/api/defined/most-ordered.php'
+                const result = await axios.get(url)
+
+                if (result) {
+                    this.recommendation_history = result.data
                 }
 
             },
@@ -484,11 +497,11 @@ include 'header.php';
                     console.log(get_last_order.data[0].id)
 
                     const result = await axios.patch('/coffee-shop/api/patch.php/' + user.data.id + '/?table=register', {
-                        "loyalty_flag": 1,
+                        "loyalty_flag": "1",
                         "last_order_id": get_last_order.data[0].id
                     })
 
-                    this.loyalty_flag = 1
+                    this.loyalty_flag = "1"
                     console.log('Updating free flag.')
                 }
 
@@ -509,6 +522,7 @@ include 'header.php';
                 }
 
                 await this.updateOrder()
+                await this.getRecommendations()
                 this.resetGenericValues()
 
             },
@@ -519,11 +533,11 @@ include 'header.php';
                 const url = '/coffee-shop/api/patch.php/' + user.data.id + '/?table=register';
 
                 const result = await axios.patch(url, {
-                    "loyalty_flag": 0,
+                    "loyalty_flag": "0",
                     "last_order_id": -1
                 })
 
-                this.loyalty_flag = 0
+                this.loyalty_flag = "0"
 
             },
 

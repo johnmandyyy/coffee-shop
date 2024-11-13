@@ -8,6 +8,99 @@ require_once 'connection.php';
 $_INITIAL_TRANSACTION_TABLE = 'transaction_header';
 $_TRANSACTION_HISTORY_TABLE = 'transaction_history';
 $_PREVIOUS_ORDER_TABLE = 'previous_order';
+$_REGISTRATION_TABLE = 'register';
+
+
+function registerUser()
+{
+    // Make sure the request is a POST method
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        global $pdo;
+        global $_REGISTRATION_TABLE;
+
+
+        // Check if the 'table' GET parameter is provided
+        if (isset($_GET['table']) && !empty($_GET['table'])) {
+
+            // Get the 'table' from the query string
+            $tableName = $_GET['table'];
+
+            // Ensure the table name matches the expected one
+            if ($tableName != $_REGISTRATION_TABLE) {
+                return false;
+            }
+
+            // Read the raw POST data (assuming it's in JSON format)
+            $jsonData = file_get_contents('php://input');
+
+            // Decode the JSON data into a PHP associative array
+            $data = json_decode($jsonData, true);
+
+            // Check if the JSON data is valid (not null)
+            if ($data !== null) {
+
+                // Initialize the query string with the table name
+                $query = "INSERT INTO " . $tableName . " (" . implode(", ", array_keys($data)) . ") ";
+                $query .= "VALUES (:" . implode(", :", array_keys($data)) . ")";
+
+                // Prepare the parameters to bind to the query
+                $params = [];
+                foreach ($data as $key => $value) {
+
+
+                    $params[":$key"] = $value;
+
+
+                    if ($key === 'password') {
+                        $params[":$key"] = password_hash($value, PASSWORD_DEFAULT);
+                    }
+
+                }
+
+                try {
+                    // Assuming you have a PDO connection ($pdo)
+                    $stmt = $pdo->prepare($query); // Prepare the SQL query
+                    $stmt->execute($params); // Execute the query with parameters
+
+                    // Check if the insert was successful
+                    if ($stmt->rowCount() > 0) {
+                        // Successfully inserted the record
+                        http_response_code(201); // Created
+                        echo json_encode(["message" => "Record inserted successfully."]);
+                        return true;
+
+                    } else {
+                        // If no rows were affected, something went wrong
+                        http_response_code(400); // Bad Request
+                        echo json_encode(["message" => "Failed to insert record."]);
+                        return true;
+                    }
+
+                } catch (PDOException $e) {
+                    return false;
+                }
+
+            } else {
+                // If no valid JSON data was provided, return an error
+                http_response_code(400); // Bad Request
+                echo json_encode(["message" => "Invalid or empty JSON data."]);
+                return true;
+            }
+
+        } else {
+            // If no 'table' GET parameter is provided or it is empty
+            http_response_code(400); // Bad Request
+            echo json_encode(["message" => "No table was defined in the query string."]);
+            return true;
+        }
+
+    } else {
+        // If the request method is not POST, return an error
+        http_response_code(405); // Method Not Allowed
+        echo json_encode(["message" => "Only POST method is allowed."]);
+        return true;
+    }
+}
 
 
 function universalInsert()
@@ -85,6 +178,8 @@ function universalInsert()
         return true;
     }
 }
+
+
 function previousOrder()
 {
 
@@ -307,6 +402,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // A POST method for SELECT where
 
     if (isset($_GET['table']) && !empty($_GET['table'])) {
 
+
+
+        // Two special cases insert.
+        if (registerUser() === true) {
+            return 0; // Use guard clause return so no other blocks are executed.
+        } // Check it is for initial transaction
 
         // Two special cases insert.
         if (initializeTransaction() === true) {
