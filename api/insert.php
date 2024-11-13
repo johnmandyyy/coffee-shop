@@ -187,7 +187,6 @@ function setTotalPrice($transaction_header_id)
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 }
-
 function initializeTransaction()
 {
     global $_INITIAL_TRANSACTION_TABLE;
@@ -287,13 +286,10 @@ function transactionHistory()
             $stmt->bindParam(':debitable_id', $item['debitable_id'], PDO::PARAM_INT);
             $stmt->execute();
 
-
+            setTotalPrice(transaction_header_id: $tran_id);
+            callUpdateTransactionHistory(transaction_header_id: $tran_id);
+            //echo $tran_id;
         }
-
-        setTotalPrice(transaction_header_id: $tran_id);
-
-        callUpdateTransactionHistory($tran_id);
-
         // Optionally return a success message or value
         return true;
 

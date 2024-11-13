@@ -81,18 +81,24 @@
                 </ul>
                 </p>
 
-                <p class="text-normal mb-2 pb-2">Payment Method: *</p>
+                <p class="text-normal mb-2 pb-2">Payment Method(s): *</p>
+                {{ loyalty_flag === 1 }} {{ is_free_flag }}
                 <select class="form-control mb-2" v-model="mode_of_payment">
-                    <option value="0">Cash</option>
-                    <option value="1">QR PH</option>
+
+                    <option value="0" :hidden="loyalty_flag === 1 && is_free_flag === true">Cash</option>
+                    <option value="1" :hidden="loyalty_flag === 1 && is_free_flag === true">QR PH</option>
+                    <option value="-1"
+                        :hidden="(loyalty_flag === 1 && is_free_flag === false) || (loyalty_flag === 0 && is_free_flag === false)">
+                        Free Item</option>
+
                 </select>
 
 
                 <span v-if="mode_of_payment === '1'">
                     <p class="text-normal mb-2 pb-2">QR PH Reference Number: *</p>
                     <input type="text" v-model="qr_ph_reference" class="form-control">
-
                 </span>
+
 
                 <p class="text-normal mt-2 mb-2 pb-2">Mode of Order: *</p>
                 <select class="form-control mb-2" v-model="mode_of_order">

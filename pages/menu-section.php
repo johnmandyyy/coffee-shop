@@ -39,6 +39,14 @@
                 </li>
 
 
+                <li v-if="is_logged === true && loyalty_flag === '1'" class="nav-item" role="presentation">
+                    <button class="nav-link" id="free-tab" data-bs-toggle="tab" data-bs-target="#free" type="button"
+                        role="tab" aria-controls="previous" aria-selected="false">
+                        Free Item from Loyalty Card
+                    </button>
+                </li>
+
+
             </ul>
 
             <div class="tab-content" id="myTabContent">
@@ -257,6 +265,37 @@
 
 
                     <!-- Previous Order -->
+                </div>
+
+                <div class="tab-pane fade" id="free" role="tabpanel" aria-labelledby="free-tab">
+                    <!-- Free active_item -->
+
+                    <div class="row mt-4">
+                        <div class="col-lg-12">
+
+
+                            <span v-if="free_item.length > 0" class="fw-bold">
+                                <p class="lead fw-normal">
+                                    You have a free {{ free_item[0].item_name }} from us!
+                                </p>
+                            </span>
+
+                            <button class="btn btn-dark" @click="claimItem()">Click to Claim</button>
+
+                            <button class="btn btn-dark btn-lg rounded-circle position-fixed bottom-0 end-0 m-4"
+                                :disabled="is_logged === false" @click="openModal('items_cart')">
+                                <p class="lead mt-2"><i class="fa-solid fa-cart-shopping"></i>
+                                    {{ my_cart.length }} - Item(s)</p>
+                            </button>
+
+                        </div>
+
+
+
+                    </div>
+
+
+                    <!-- Free Item -->
                 </div>
 
 

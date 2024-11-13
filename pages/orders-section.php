@@ -36,7 +36,13 @@
                                     <td class="text-muted">{{ data.name }}</td>
                                     <td class="text-muted">{{ data.address }}</td>
                                     <td class="text-muted">{{ data.mobile }}</td>
-                                    <td class="text-muted">{{ data.ref_id === null ? 'Paid in Cash' : data.ref_id }}
+                                    <td class="text-muted">
+                                        <span v-if="data.ref_id === null">
+                                            Paid in Cash
+                                        </span>
+                                        <span v-if="data.ref_id === '-1'">
+                                            FREE ITEM CLAIMED
+                                        </span>
                                     </td>
                                     <td class="text-muted">{{ data.mode_of_pickup === 1 ? 'Delivery' : 'Pickup' }}</td>
                                     <td>{{ data.is_done === 1 ? 'Order(s) Completed' : 'Pending' }}</td>

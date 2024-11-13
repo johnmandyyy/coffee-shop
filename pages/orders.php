@@ -31,6 +31,7 @@ include 'header.php';
         data: {
             "history": [],
             "active_order_view": [],
+            "active_order_details": [],
             "message": ""
         },
         computed: {},
@@ -64,9 +65,23 @@ include 'header.php';
                 const result = await axios.post('/coffee-shop/api/fetch.php?table=transaction_history', data)
 
                 if (result.status === 200) {
+
+                    await this.getInDepthDetails(result.data[0].transaction_header_id)
                     this.active_order_view = result.data
                     openModal('order_details_modal')
                 }
+            },
+
+            async getInDepthDetails(id) {
+                const url = '/coffee-shop/api/fetch.php?table=previous_order'
+                const result = await axios.post(url, {
+                    "transaction_header_id": id
+                })
+
+                if (result) {
+                    this.active_order_details = JSON.parse(result.data[0].json_order)
+                }
+
             },
 
             async orderComplete(prop) {

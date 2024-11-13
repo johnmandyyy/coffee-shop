@@ -61,8 +61,10 @@ include 'header.php';
 
             "mode_of_payment": 0,
             "mode_of_order": 0,
-            "qr_ph_reference": null
-
+            "qr_ph_reference": null,
+            "loyalty_flag": 0,
+            "free_item": [],
+            "is_free_flag": false
         },
 
         computed: {
@@ -79,7 +81,6 @@ include 'header.php';
                         });
 
                 });
-
 
                 return total
             }
@@ -105,8 +106,9 @@ include 'header.php';
             }
         },
         mounted() {
-
             this.getUserDetails()
+            this.getFlags()
+            this.getFreeItem()
             this.getAddOns()
             this.getPrimaryItems()
             this.getFrappe()
@@ -117,6 +119,28 @@ include 'header.php';
 
         methods: {
 
+            async getFreeItem() {
+
+                const url = '/coffee-shop/api/fetch.php?table=free_item'
+                const result = await axios.get(url)
+
+                if (result) {
+                    this.free_item = result.data
+                }
+
+            },
+
+            async getFlags() {
+
+                const user = await this.getUserDetails()
+                const url = '/coffee-shop/api/defined/get_flags.php?id=' + String(user.data.id)
+                const result = await axios.get(url)
+                if (result.status === 200) {
+                    this.loyalty_flag = result.data.loyalty_flag
+                    return result
+                }
+
+            },
 
             async getPreviousOrderHistory() {
 
@@ -420,6 +444,7 @@ include 'header.php';
                     }
 
                     const result = await axios.post(url, data)
+
                     if (result) {
                         console.log('Saved into previous order.')
                     }
@@ -430,10 +455,42 @@ include 'header.php';
 
             },
 
+            async getLastOrder() {
+
+                const url = '/coffee-shop/api/fetch.php?table=previous_order'
+                const result = await axios.post(url, {
+                    "transaction_header_id": this.transaction_header_id
+                })
+
+                if (result) {
+                    return result
+                }
+
+            },
+
             async processTransaction() {
 
                 const formatted_debitables = await this.setFormat()
                 const last_order = await this.saveLastOrder()
+                const flags = await this.getFlags()
+                const get_last_order = await this.getLastOrder()
+                //console.log(get_last_order)
+
+                if (flags.data.modulo === '0' && flags.data.last_order_id === '-1') {
+
+                    const user = await this.getUserDetails()
+
+                    console.log('settings this as last order id')
+                    console.log(get_last_order.data[0].id)
+
+                    const result = await axios.patch('/coffee-shop/api/patch.php/' + user.data.id + '/?table=register', {
+                        "loyalty_flag": 1,
+                        "last_order_id": get_last_order.data[0].id
+                    })
+
+                    this.loyalty_flag = 1
+                    console.log('Updating free flag.')
+                }
 
                 const url = '/coffee-shop/api/insert.php?table=transaction_history';
 
@@ -451,27 +508,53 @@ include 'header.php';
                     console.log(error)
                 }
 
-
-
                 await this.updateOrder()
                 this.resetGenericValues()
 
             },
 
+            async freeIsClaimed() {
 
-            async updateOrder() {
-                const url = '/coffee-shop/api/patch.php/' + this.transaction_header_id + '/?table=transaction_header';
-                const result = axios.patch(url, {
-                    "mode_of_pickup": this.mode_of_order,
-                    "ref_id": this.qr_ph_reference
+                const user = await this.getUserDetails()
+                const url = '/coffee-shop/api/patch.php/' + user.data.id + '/?table=register';
+
+                const result = await axios.patch(url, {
+                    "loyalty_flag": 0,
+                    "last_order_id": -1
                 })
 
-                if (result) {
-                    this.my_cart = []
-                    this.mode_of_payment = 0
-                    this.mode_of_order = 0
-                    this.qr_ph_reference = null
+                this.loyalty_flag = 0
+
+            },
+
+            async updateOrder() {
+
+                let data = {}
+                let result = null
+
+                if (this.qr_ph_reference === -1) {
+
+                    result = await axios.patch('/coffee-shop/api/patch.php/' + this.transaction_header_id + '/?table=transaction_header', {
+                        "mode_of_pickup": this.mode_of_order,
+                        "ref_id": this.qr_ph_reference,
+                        "total_price": 0
+                    })
+
+                    await this.freeIsClaimed()
+
+                } else {
+
+                    result = await axios.patch('/coffee-shop/api/patch.php/' + this.transaction_header_id + '/?table=transaction_header', {
+                        "mode_of_pickup": this.mode_of_order,
+                        "ref_id": this.qr_ph_reference
+                    })
+
                 }
+
+                this.my_cart = []
+                this.mode_of_payment = 0
+                this.mode_of_order = 0
+                this.qr_ph_reference = null
 
             },
 
@@ -504,8 +587,38 @@ include 'header.php';
                 return type === 'hot_coffee' || type === 'iced_coffee' || type === 'bottled_coffee' || type === 'frappe' || type === 'milktea'
             },
 
+            async claimItem() {
+
+                this.my_cart = []
+                const url = '/coffee-shop/api/fetch.php?table=debitables'
+
+                const result = await axios.post(url, {
+                    "id": this.free_item[0].debitable_id
+                })
+
+                if (result) {
+
+                    this.active_item = {
+                        "data": result.data
+                    }
+
+                    this.quantity = 1
+                    this.addToCart()
+
+                    this.mode_of_payment = -1
+                    this.qr_ph_reference = -1
+
+                    this.is_free_flag = true
+
+                    await this.processTransaction()
+                    await this.freeIsClaimed()
+                }
+
+            },
             filterAddToCart() {
                 // Method Used for adding items.
+                console.log(this.active_item)
+                console.log('is the format')
                 console.log(this.active_item.data[0].type)
 
                 if (this.hasAddOns(this.active_item.data[0].type) === false) {
@@ -536,11 +649,15 @@ include 'header.php';
             },
 
             addToCart() {
+                this.mode_of_payment = 0
+                this.qr_ph_reference = null
+                this.is_free_flag = false
                 for (let i = 0; i < this.quantity; i++) {
                     this.my_cart.push(this.filterAddToCart())
                 }
                 this.resetGenericValues()
                 closeModal('item_category')
+
             },
 
             setItem(prop, is_primary) {
