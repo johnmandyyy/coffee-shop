@@ -75,6 +75,26 @@
                 </div>
             </div>
 
+            <div class="col-lg-12">
+                <div class="mt-4 card text-center">
+                    <div class="card-header fw-bold">Top Sale(s) From Auto Generated Bundle</div>
+                    <div class="card-body">
+                        <div v-for="data in most_sold">
+                            <br>
+                            This is sold: {{ data.times_sold }} time(s). Generating a Gross Income of PHP {{
+                            data.generated_stream }}
+                            <div v-for="item in JSON.parse(data.json_order)">
+                                {{ item.item }} - PHP {{ item.price }}
+                            </div>
+
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
     </div>

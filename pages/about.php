@@ -27,7 +27,6 @@ include 'header.php';
 
 
 
-<?php include '../partials/footer.php' ?>
 
 </html>
 

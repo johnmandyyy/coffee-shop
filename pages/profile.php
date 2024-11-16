@@ -24,7 +24,8 @@ include 'header.php';
                 "mobile": null,
                 "address": null,
                 "message": "",
-                "loyalty_flag": 0
+                "loyalty_flag": 0,
+                "is_admin": 0
             },
             computed: {},
             watch: {},
@@ -69,6 +70,7 @@ include 'header.php';
                         this.mobile = result.data[0].mobile
                         this.doj = result.data[0].created_at
                         this.loyalty_flag = result.data[0].loyalty_flag
+                        this.is_admin = result.data[0].is_admin
                     }
 
                     return result

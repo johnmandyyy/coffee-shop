@@ -11,7 +11,7 @@
         <p class="lead fw-normal">Here you can customize your profile.</p>
 
 
-        <div class="card mt-4">
+        <div v-if="is_admin === 0" class="card mt-4">
 
             <div class="card-header">
                 <p class="lead fw-bold mb-0 pb-0">Loyalty Card</p>
@@ -57,5 +57,6 @@
 
             </div>
         </div>
+
     </div>
 </div>

@@ -8,9 +8,10 @@
         <h1 class="display-6 fw-normal text-muted">
             Life begins after a cup of coffee.
         </h1>
-        <button class="btn btn-dark fw-bold text-white btn-lg mt-2">
+        <a href="/coffee-shop/pages/menu.php" class="btn btn-dark fw-bold text-white btn-lg mt-2">
             <i class="fa-solid fa-cart-shopping"></i> Buy Now!
-        </button>
+        </a>
+
     </div>
 
     <div class="col-lg-6 coffee-splash mb-0 pb-0">

@@ -19,12 +19,14 @@ include 'header.php';
             el: "#admin",
             data: {
                 "message": "",
-                "reports": []
+                "reports": [],
+                "most_sold": []
             },
             computed: {},
             watch: {},
             mounted() {
                 this.getReports()
+                this.getMostSold()
             },
 
             methods: {
@@ -37,7 +39,15 @@ include 'header.php';
                     if (result) {
                         this.reports = result.data
                     }
-                }
+                },
+                async getMostSold() {
+                    const url = '/coffee-shop/api/defined/most-ordered.php/'
+                    const result = await axios.get(url)
+                    if (result) {
+                        this.most_sold = result.data
+                    }
+
+                },
             },
         });
 
@@ -48,6 +58,6 @@ include 'header.php';
 
 <?php
 
-include '../partials/footer.php'
 
-    ?>
+
+?>

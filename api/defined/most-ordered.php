@@ -18,7 +18,7 @@ function executeReport($query)
 
 }
 
-$_query = "SELECT *, COUNT(*) as 'times_sold' FROM previous_order GROUP BY json_order ORDER by times_sold desc LIMIT 2;";
+$_query = "SELECT *, COUNT(*) as 'times_sold', (COUNT(*) * total_price_of_all) as 'generated_stream' FROM previous_order where previous_order.is_done = 1 GROUP BY json_order ORDER by times_sold desc LIMIT 2;";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $results = executeReport($_query);

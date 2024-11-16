@@ -1,11 +1,8 @@
 <?php
-session_start();
 
+session_start();
 include 'header.php';
 
-if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
-    header("Location: /coffee-shop/pages/index.php");
-}
 
 ?>
 
@@ -64,7 +61,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
         computed: {},
         watch: {},
         mounted() {
-
+            this.getRedirect()
         },
 
         methods: {
@@ -81,7 +78,30 @@ if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
                     window.location.href = "/coffee-shop/pages/index.php"
                 }
 
+            },
+
+            async getUserDetails() {
+                const url = '/coffee-shop/api/user_details.php/'
+                const result = await axios.get(url)
+                return result
+            },
+
+            async getRedirect() {
+
+                const user = await this.getUserDetails()
+                console.log(user.data.id)
+                const url = '/coffee-shop/api/fetch.php?table=register'
+
+                const result = await axios.post(url, {
+                    "id": user.data.id
+                })
+
+                if (result) {
+                    window.location.href = '/coffee-shop/pages/index.php'
+                }
+
             }
+
         },
     });
 </script>

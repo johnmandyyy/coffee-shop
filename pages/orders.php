@@ -85,7 +85,12 @@ include 'header.php';
             },
 
             async orderComplete(prop) {
+
+
+                const previous_oder = await this.getPreviousOrder(prop.id)
+
                 const url = '/coffee-shop/api/patch.php/' + String(prop.id) + '/?table=transaction_header'
+
                 const result = await axios.patch(url, {
                     "is_done": 1
                 })
@@ -95,6 +100,32 @@ include 'header.php';
                     openModal('universal_modal')
                     await this.getTransactionHistory()
                 }
+
+                const is_patch_done = await this.patchDone(previous_oder.data[0].id)
+
+            },
+
+            async getPreviousOrder(transaction_id) {
+                const url = '/coffee-shop/api/fetch.php?table=previous_order'
+
+                const result = await axios.post(url, {
+                    "transaction_header_id": transaction_id
+                })
+
+                return result
+            },
+
+
+            async patchDone(id) {
+
+                console.log(id)
+                console.log('patching id')
+                const data = {
+                    "is_done": 1
+                }
+
+                const result = await axios.patch('/coffee-shop/api/patch.php/' + id + '/?table=previous_order', data)
+                return result
 
             },
 

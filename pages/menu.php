@@ -149,7 +149,8 @@ include 'header.php';
                 const user = await this.getUserDetails()
 
                 const data = {
-                    "register_id": user.data.id
+                    "register_id": user.data.id,
+                    "is_done": 1
                 }
 
                 const result = await axios.post('/coffee-shop/api/fetch.php?table=previous_order', data)
@@ -167,7 +168,9 @@ include 'header.php';
             async getRecommendations() {
 
                 const url = '/coffee-shop/api/defined/most-ordered.php'
-                const result = await axios.get(url)
+                const result = await axios.post(url, {
+                    "is_done": 1
+                })
 
                 if (result) {
                     this.recommendation_history = result.data
@@ -193,9 +196,11 @@ include 'header.php';
             async setPreviousOrder(id) {
 
                 const url = '/coffee-shop/api/fetch.php?table=previous_order'
+
                 const result = await axios.post(url, {
                     "id": id
                 })
+
                 this.my_cart = JSON.parse(result.data[0].json_order);
                 openModal('items_cart')
             },
@@ -514,7 +519,7 @@ include 'header.php';
                     if (result) {
                         closeModal('items_cart')
                         openModal('universal_modal')
-                        this.message = 'Order Success'
+                        this.message = 'Order Success your transaction header reference id is ' + String(this.transaction_header_id)
                     }
 
                 } catch (error) {

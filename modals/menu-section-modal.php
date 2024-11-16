@@ -49,6 +49,7 @@
             </div>
 
             <div class="modal-body">
+
                 <p class="text-normal">
 
                 <ul class="list-group">

@@ -31,9 +31,15 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/index.php">
-                    <i class="fa-solid fa-house p-3"></i>Home
+            <li v-if="is_admin === 1" class="nav-item">
+                <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/feedback.php">
+                    <i class="fa-solid fa-house p-3"></i>Feedback(s)
+                </a>
+            </li>
+
+            <li v-if="is_admin === 0" class="nav-item">
+                <a class="nav-link fw-normal text-muted" href="/coffee-shop/pages/menu.php">
+                    <i class="fa-solid fa-bars p-3"></i>Order / Menu
                 </a>
             </li>
 
@@ -66,12 +72,23 @@
         computed: {},
         watch: {},
         mounted() {
+
             this.getMission()
         },
         methods: {
-            async getMission() {
-                const url = '/coffee-shop/api/fetch.php?table=register'
+            async getUserDetails() {
+                const url = '/coffee-shop/api/user_details.php/'
                 const result = await axios.get(url)
+                return result
+            },
+            async getMission() {
+                const user = await this.getUserDetails()
+                console.log(user.data.id)
+                const url = '/coffee-shop/api/fetch.php?table=register'
+                const result = await axios.post(url, {
+                    "id": user.data.id
+                })
+
                 if (result) {
                     this.is_admin = result.data[0].is_admin
                 }
