@@ -15,7 +15,7 @@ include 'header.php';
             <div class="col-lg-12">
                 <h1 class="display-6 fw-bold mb-0">
                     <i class="fa-solid fa-shelves"></i>
-                    Inventory
+                    Inventory Management
                 </h1>
                 <p class="lead fw-normal">Here you can manage the stock(s) of inventory and price(s).</p>
 
@@ -35,9 +35,9 @@ include 'header.php';
                                 </thead>
                                 <tbody>
                                     <tr v-for="data in inventory">
-                                        <td>{{ data.id }}</td>
-                                        <td>{{ data.item }}</td>
-                                        <td>PHP {{ data.price }}.00</td>
+                                        <td># {{ data.id }}</td>
+                                        <td class="fw-bold text-muted">{{ data.item }}</td>
+                                        <td class="fw-bold text-success">PHP {{ data.price }}.00</td>
                                         <td>
                                             <span v-if="data.type === 'add_ons'">
                                                 Add On(s)
@@ -65,17 +65,15 @@ include 'header.php';
                                         <td>{{ data.stocks }}</td>
 
                                         <td>
-                                            <button class="btn btn-dark lg" @click="updateItem(data)">
+                                            <button class="btn btn-secondary lg" @click="updateItem(data)">
                                                 <i class="fa-solid fa-eye"></i> Update Item
                                             </button>
 
-                                            <button class="btn btn-dark lg" @click="setFreeItem(data)">
+                                            <button class="btn btn-success lg" @click="setFreeItem(data)">
                                                 <i class="fa-solid fa-award"></i> Set as Free Item
                                             </button>
 
                                         </td>
-
-
 
                                     </tr>
                                 </tbody>

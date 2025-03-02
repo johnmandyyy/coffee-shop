@@ -14,12 +14,12 @@ include 'header.php';
 
     <div class="container mt-4">
 
-        <?php include '../partials/pill.php' ?>
-
         <?php include 'about-section.php' ?>
 
 
     </div>
+
+    <?php include '../partials/footer.php' ?>
 
     <script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
 

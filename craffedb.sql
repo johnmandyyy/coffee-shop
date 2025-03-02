@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2024 at 01:56 PM
+-- Generation Time: Mar 02, 2025 at 05:20 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -164,87 +164,88 @@ CREATE TABLE `debitables` (
   `price` float DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
   `image` text DEFAULT NULL,
-  `stocks` int(11) DEFAULT NULL
+  `stocks` int(11) DEFAULT NULL,
+  `image_src` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `debitables`
 --
 
-INSERT INTO `debitables` (`id`, `item`, `price`, `type`, `image`, `stocks`) VALUES
-(1, 'Single Shot Espresso', 20, 'add_ons', NULL, 48),
-(2, 'Sugar Syrup', 10, 'add_ons', NULL, 47),
-(3, 'Vanilla Syrup', 10, 'add_ons', NULL, 46),
-(4, 'Caramel Sauce', 10, 'add_ons', NULL, 45),
-(5, 'Salted Caramel Sauce', 10, 'add_ons', NULL, 49),
-(6, 'White Chocolate Sauce', 10, 'add_ons', NULL, 49),
-(7, 'Chocolate Sauce', 10, 'add_ons', NULL, 50),
-(8, 'Extra Milk', 15, 'add_ons', NULL, 49),
-(9, 'Extra Jelly/Nata/Pearl', 10, 'add_ons', NULL, 45),
-(10, 'Sub Oat Milk', 30, 'add_ons', NULL, 49),
-(11, 'Chocolate Chip Cookies', 45, 'snacks', NULL, 38),
-(12, 'Smores Cookies', 60, 'snacks', NULL, 46),
-(13, 'Red Velvet Cookies', 55, 'snacks', NULL, 34),
-(14, 'Brownies', 35, 'snacks', NULL, 4),
-(15, 'Egg Tart', 25, 'snacks', NULL, 47),
-(16, 'Graham Bar', 45, 'snacks', NULL, 48),
-(17, 'Yema Cake', 100, 'snacks', NULL, 50),
-(18, 'Chocolate Cake', 100, 'snacks', NULL, 49),
-(19, 'Ube Flan Cake', 110, 'snacks', NULL, 50),
-(20, 'Toasted Pastillas', 40, 'snacks', NULL, 50),
-(21, 'Jelly Flan', 70, 'snacks', NULL, 49),
-(22, 'Polvoron - Classic', 60, 'snacks', NULL, 50),
-(23, 'Polvoron - Cookies and Cream', 65, 'snacks', NULL, 50),
-(24, 'Iced - Americano 16 Oz', 75, 'iced_coffee', NULL, 30),
-(25, 'Iced - Americano 22 Oz', 95, 'iced_coffee', NULL, 45),
-(26, 'Iced - Craffeccino 16 Oz', 80, 'iced_coffee', NULL, 39),
-(27, 'Iced - Craffeccino 22 Oz', 100, 'iced_coffee', NULL, 46),
-(28, 'Iced - Cappuccino 16 Oz', 90, 'iced_coffee', NULL, 49),
-(29, 'Iced - Cappuccino 22 Oz', 110, 'iced_coffee', NULL, 50),
-(30, 'Iced - Flat White 16 Oz', 90, 'iced_coffee', NULL, 46),
-(31, 'Iced - Flat White 22 Oz', 110, 'iced_coffee', NULL, 49),
-(32, 'Iced - Vanilla Latte 16 Oz', 99, 'iced_coffee', NULL, 50),
-(33, 'Iced - Vanilla Latte 22 Oz', 119, 'iced_coffee', NULL, 49),
-(34, 'Iced - Spanish Latte 16 Oz', 99, 'iced_coffee', NULL, 50),
-(35, 'Iced - Spanish Latte 22 Oz', 119, 'iced_coffee', NULL, 50),
-(36, 'Iced - Mocha 16 Oz', 110, 'iced_coffee', NULL, 50),
-(37, 'Iced - Mocha 22 Oz', 130, 'iced_coffee', NULL, 50),
-(38, 'Iced - Caramel Macchiato 16 Oz', 110, 'iced_coffee', NULL, 50),
-(39, 'Iced - Caramel Macchiato 22 Oz', 130, 'iced_coffee', NULL, 50),
-(40, 'Iced - White Chocolate Mocha 16 Oz', 110, 'iced_coffee', NULL, 50),
-(41, 'Iced - White Chocolate Mocha 22 Oz', 130, 'iced_coffee', NULL, 50),
-(42, 'Iced - Salted Caramel 16 Oz', 110, 'iced_coffee', NULL, 50),
-(43, 'Iced - Salted Caramel 22 Oz', 130, 'iced_coffee', NULL, 50),
-(44, 'Hot - Americano', 75, 'hot_coffee', NULL, 46),
-(45, 'Hot - Craffeccino', 80, 'hot_coffee', NULL, 41),
-(46, 'Hot -Cappuccino', 90, 'hot_coffee', NULL, 48),
-(47, 'Hot - Flat White', 90, 'hot_coffee', NULL, 50),
-(48, 'Hot - Vanilla Latte', 99, 'hot_coffee', NULL, 50),
-(49, 'Hot - Spanish Latte', 99, 'hot_coffee', NULL, 50),
-(50, 'Hot - Mocha', 110, 'hot_coffee', NULL, 49),
-(51, 'Hot - Caramel Macchiato', 110, 'hot_coffee', NULL, 50),
-(52, 'Hot - White Chocolate Mocha', 110, 'hot_coffee', NULL, 50),
-(53, 'Hot - Salted Caramel', 110, 'hot_coffee', NULL, 49),
-(59, 'Bottled - Americano', 100, 'bottled_coffee', NULL, 34),
-(60, 'Bottled - Craffeccino', 105, 'bottled_coffee', NULL, 41),
-(61, 'Bottled - Cappuccino', 115, 'bottled_coffee', NULL, 40),
-(62, 'Bottled - Flat White', 115, 'bottled_coffee', NULL, 47),
-(63, 'Bottled - Vanilla Latte', 125, 'bottled_coffee', NULL, 42),
-(64, 'Bottled - Spanish Latte', 125, 'bottled_coffee', NULL, 47),
-(65, 'Bottled - Mocha', 135, 'bottled_coffee', NULL, 49),
-(66, 'Bottled - Caramel Macchiato', 135, 'bottled_coffee', NULL, 50),
-(67, 'Bottled - White Chocolate Mocha', 135, 'bottled_coffee', NULL, 50),
-(68, 'Bottled - Salted Caramel', 135, 'bottled_coffee', NULL, 50),
-(69, 'Wintermelon', 50, 'milktea', NULL, 23),
-(70, 'Cookies n Cream', 50, 'milktea', NULL, 42),
-(71, 'Taro', 50, 'milktea', NULL, 42),
-(72, 'Red Velvet', 50, 'milktea', NULL, 43),
-(73, 'Okinawa', 50, 'milktea', NULL, 39),
-(74, 'Dark Chocolate', 50, 'milktea', NULL, 49),
-(75, 'Strawberry Dreamscape', 100, 'frappe', NULL, 44),
-(76, 'Choco Lush', 100, 'frappe', NULL, 47),
-(77, 'Cookie Crumble', 100, 'frappe', NULL, 50),
-(78, 'Matcha Bliss', 120, 'frappe', NULL, 50);
+INSERT INTO `debitables` (`id`, `item`, `price`, `type`, `image`, `stocks`, `image_src`) VALUES
+(1, 'Single Shot Espresso', 20, 'add_ons', NULL, 48, NULL),
+(2, 'Sugar Syrup', 10, 'add_ons', NULL, 47, NULL),
+(3, 'Vanilla Syrup', 10, 'add_ons', NULL, 46, NULL),
+(4, 'Caramel Sauce', 10, 'add_ons', NULL, 45, NULL),
+(5, 'Salted Caramel Sauce', 10, 'add_ons', NULL, 49, NULL),
+(6, 'White Chocolate Sauce', 10, 'add_ons', NULL, 49, NULL),
+(7, 'Chocolate Sauce', 10, 'add_ons', NULL, 50, NULL),
+(8, 'Extra Milk', 15, 'add_ons', NULL, 49, NULL),
+(9, 'Extra Jelly/Nata/Pearl', 10, 'add_ons', NULL, 45, NULL),
+(10, 'Sub Oat Milk', 30, 'add_ons', NULL, 49, NULL),
+(11, 'Chocolate Chip Cookies', 45, 'snacks', NULL, 37, '/coffee-shop/assets/product-items/cookies.webp'),
+(12, 'Smores Cookies', 60, 'snacks', NULL, 44, '/coffee-shop/assets/product-items/smores.jpg'),
+(13, 'Red Velvet Cookies', 55, 'snacks', NULL, 31, '/coffee-shop/assets/product-items/red-velvet.jpg'),
+(14, 'Brownies', 35, 'snacks', NULL, 0, '/coffee-shop/assets/product-items/brownies.jpg'),
+(15, 'Egg Tart', 25, 'snacks', NULL, 45, '/coffee-shop/assets/product-items/egg-tart.jpg'),
+(16, 'Graham Bar', 45, 'snacks', NULL, 46, '/coffee-shop/assets/product-items/graham-bar.jpg'),
+(17, 'Yema Cake', 100, 'snacks', NULL, 47, '/coffee-shop/assets/product-items/yema-cake.jpg'),
+(18, 'Chocolate Cake', 100, 'snacks', NULL, 48, '/coffee-shop/assets/product-items/choco-cake.webp'),
+(19, 'Ube Flan Cake', 110, 'snacks', NULL, 45, '/coffee-shop/assets/product-items/ube-cake.jpg'),
+(20, 'Toasted Pastillas', 40, 'snacks', NULL, 48, '/coffee-shop/assets/product-items/toasted-pastillas.jpg'),
+(21, 'Jelly Flan', 70, 'snacks', NULL, 42, '/coffee-shop/assets/product-items/jelly-flan.jpg'),
+(22, 'Polvoron - Classic', 60, 'snacks', NULL, 50, '/coffee-shop/assets/product-items/polvoron.jpg'),
+(23, 'Polvoron - Cookies and Cream', 65, 'snacks', NULL, 49, '/coffee-shop/assets/product-items/polvoron-cookies.jpg'),
+(24, 'Iced - Americano 16 Oz', 75, 'iced_coffee', NULL, 30, NULL),
+(25, 'Iced - Americano 22 Oz', 95, 'iced_coffee', NULL, 45, NULL),
+(26, 'Iced - Craffeccino 16 Oz', 80, 'iced_coffee', NULL, 36, NULL),
+(27, 'Iced - Craffeccino 22 Oz', 100, 'iced_coffee', NULL, 46, NULL),
+(28, 'Iced - Cappuccino 16 Oz', 90, 'iced_coffee', NULL, 49, NULL),
+(29, 'Iced - Cappuccino 22 Oz', 110, 'iced_coffee', NULL, 50, NULL),
+(30, 'Iced - Flat White 16 Oz', 90, 'iced_coffee', NULL, 46, NULL),
+(31, 'Iced - Flat White 22 Oz', 110, 'iced_coffee', NULL, 49, NULL),
+(32, 'Iced - Vanilla Latte 16 Oz', 99, 'iced_coffee', NULL, 50, NULL),
+(33, 'Iced - Vanilla Latte 22 Oz', 119, 'iced_coffee', NULL, 49, NULL),
+(34, 'Iced - Spanish Latte 16 Oz', 99, 'iced_coffee', NULL, 50, NULL),
+(35, 'Iced - Spanish Latte 22 Oz', 119, 'iced_coffee', NULL, 50, NULL),
+(36, 'Iced - Mocha 16 Oz', 110, 'iced_coffee', NULL, 50, NULL),
+(37, 'Iced - Mocha 22 Oz', 130, 'iced_coffee', NULL, 50, NULL),
+(38, 'Iced - Caramel Macchiato 16 Oz', 110, 'iced_coffee', NULL, 50, NULL),
+(39, 'Iced - Caramel Macchiato 22 Oz', 130, 'iced_coffee', NULL, 50, NULL),
+(40, 'Iced - White Chocolate Mocha 16 Oz', 110, 'iced_coffee', NULL, 50, NULL),
+(41, 'Iced - White Chocolate Mocha 22 Oz', 130, 'iced_coffee', NULL, 50, NULL),
+(42, 'Iced - Salted Caramel 16 Oz', 110, 'iced_coffee', NULL, 50, NULL),
+(43, 'Iced - Salted Caramel 22 Oz', 130, 'iced_coffee', NULL, 48, NULL),
+(44, 'Hot - Americano', 75, 'hot_coffee', NULL, 46, NULL),
+(45, 'Hot - Craffeccino', 80, 'hot_coffee', NULL, 38, NULL),
+(46, 'Hot -Cappuccino', 90, 'hot_coffee', NULL, 47, NULL),
+(47, 'Hot - Flat White', 90, 'hot_coffee', NULL, 50, NULL),
+(48, 'Hot - Vanilla Latte', 99, 'hot_coffee', NULL, 50, NULL),
+(49, 'Hot - Spanish Latte', 99, 'hot_coffee', NULL, 50, NULL),
+(50, 'Hot - Mocha', 110, 'hot_coffee', NULL, 43, NULL),
+(51, 'Hot - Caramel Macchiato', 110, 'hot_coffee', NULL, 49, NULL),
+(52, 'Hot - White Chocolate Mocha', 110, 'hot_coffee', NULL, 50, NULL),
+(53, 'Hot - Salted Caramel', 110, 'hot_coffee', NULL, 48, NULL),
+(59, 'Bottled - Americano', 100, 'bottled_coffee', NULL, 28, NULL),
+(60, 'Bottled - Craffeccino', 105, 'bottled_coffee', NULL, 35, NULL),
+(61, 'Bottled - Cappuccino', 115, 'bottled_coffee', NULL, 35, NULL),
+(62, 'Bottled - Flat White', 115, 'bottled_coffee', NULL, 38, NULL),
+(63, 'Bottled - Vanilla Latte', 125, 'bottled_coffee', NULL, 39, NULL),
+(64, 'Bottled - Spanish Latte', 125, 'bottled_coffee', NULL, 45, NULL),
+(65, 'Bottled - Mocha', 135, 'bottled_coffee', NULL, 44, NULL),
+(66, 'Bottled - Caramel Macchiato', 135, 'bottled_coffee', NULL, 47, NULL),
+(67, 'Bottled - White Chocolate Mocha', 135, 'bottled_coffee', NULL, 49, NULL),
+(68, 'Bottled - Salted Caramel', 135, 'bottled_coffee', NULL, 50, NULL),
+(69, 'Wintermelon', 50, 'milktea', NULL, 23, NULL),
+(70, 'Cookies n Cream', 50, 'milktea', NULL, 42, NULL),
+(71, 'Taro', 50, 'milktea', NULL, 37, NULL),
+(72, 'Red Velvet', 50, 'milktea', NULL, 42, NULL),
+(73, 'Okinawa', 50, 'milktea', NULL, 39, NULL),
+(74, 'Dark Chocolate', 50, 'milktea', NULL, 42, NULL),
+(75, 'Strawberry Dreamscape', 100, 'frappe', NULL, 42, NULL),
+(76, 'Choco Lush', 100, 'frappe', NULL, 41, NULL),
+(77, 'Cookie Crumble', 100, 'frappe', NULL, 48, NULL),
+(78, 'Matcha Bliss', 120, 'frappe', NULL, 42, NULL);
 
 -- --------------------------------------------------------
 
@@ -321,6 +322,13 @@ CREATE TABLE `feedback` (
   `feedback` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `debitable_id`, `item`, `register_id`, `feedback`) VALUES
+(1, 65, 'Bottled - Mocha', 57, 'Nays');
+
 -- --------------------------------------------------------
 
 --
@@ -374,21 +382,6 @@ CREATE TABLE `previous_order` (
   `is_done` int(11) DEFAULT 0,
   `total_price_of_all` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `previous_order`
---
-
-INSERT INTO `previous_order` (`id`, `json_order`, `transaction_header_id`, `dot`, `register_id`, `has_feedback`, `is_done`, `total_price_of_all`) VALUES
-(1, '[{\"id\":24,\"item\":\"Iced - Americano 16 Oz\",\"price\":75,\"type\":\"iced_coffee\",\"add_ons\":[{\"id\":4,\"item\":\"Caramel Sauce\",\"price\":10,\"type\":\"add_ons\",\"image\":null,\"stocks\":50}]},{\"id\":24,\"item\":\"Iced - Americano 16 Oz\",\"price\":75,\"type\":\"iced_coffee\",\"add_ons\":[]},{\"id\":60,\"item\":\"Bottled - Craffeccino\",\"price\":105,\"type\":\"bottled_coffee\",\"add_ons\":[]},{\"id\":11,\"item\":\"Chocolate Chip Cookies\",\"price\":45,\"type\":\"snacks\"},{\"id\":11,\"item\":\"Chocolate Chip Cookies\",\"price\":45,\"type\":\"snacks\"}]', 1, '2024-11-13 23:23:42', 52, 0, 1, 355),
-(2, '[{\"id\":1,\"item\":\"Single Shot Espresso\",\"price\":20,\"type\":\"add_ons\"}]', 2, '2024-11-13 23:24:41', 52, 0, 1, 0),
-(3, '[{\"id\":26,\"item\":\"Iced - Craffeccino 16 Oz\",\"price\":80,\"type\":\"iced_coffee\",\"add_ons\":[]},{\"id\":61,\"item\":\"Bottled - Cappuccino\",\"price\":115,\"type\":\"bottled_coffee\",\"add_ons\":[]},{\"id\":61,\"item\":\"Bottled - Cappuccino\",\"price\":115,\"type\":\"bottled_coffee\",\"add_ons\":[]}]', 3, '2024-11-13 23:28:10', 52, 0, 1, 310),
-(4, '[{\"id\":24,\"item\":\"Iced - Americano 16 Oz\",\"price\":75,\"type\":\"iced_coffee\",\"add_ons\":[]},{\"id\":45,\"item\":\"Hot - Craffeccino\",\"price\":80,\"type\":\"hot_coffee\",\"add_ons\":[]},{\"id\":61,\"item\":\"Bottled - Cappuccino\",\"price\":115,\"type\":\"bottled_coffee\",\"add_ons\":[]},{\"id\":75,\"item\":\"Strawberry Dreamscape\",\"price\":100,\"type\":\"frappe\",\"add_ons\":[]}]', 4, '2024-11-13 23:31:34', 53, 0, 1, 370),
-(5, '[{\"id\":24,\"item\":\"Iced - Americano 16 Oz\",\"price\":75,\"type\":\"iced_coffee\",\"add_ons\":[]},{\"id\":45,\"item\":\"Hot - Craffeccino\",\"price\":80,\"type\":\"hot_coffee\",\"add_ons\":[]},{\"id\":61,\"item\":\"Bottled - Cappuccino\",\"price\":115,\"type\":\"bottled_coffee\",\"add_ons\":[]},{\"id\":75,\"item\":\"Strawberry Dreamscape\",\"price\":100,\"type\":\"frappe\",\"add_ons\":[]}]', 5, '2024-11-13 23:31:35', 53, 0, 1, 370),
-(6, '[{\"id\":26,\"item\":\"Iced - Craffeccino 16 Oz\",\"price\":80,\"type\":\"iced_coffee\",\"add_ons\":[]}]', 6, '2024-11-13 23:32:51', 53, 0, 0, 0),
-(8, '[{\"id\":64,\"item\":\"Bottled - Spanish Latte\",\"price\":125,\"type\":\"bottled_coffee\",\"add_ons\":[]}]', 8, '2024-11-13 23:55:12', 55, 0, 1, 125),
-(9, '[{\"id\":69,\"item\":\"Wintermelon\",\"price\":50,\"type\":\"milktea\",\"add_ons\":[]}]', 9, '2024-11-13 23:57:49', 56, 0, 1, 50),
-(10, '[{\"id\":63,\"item\":\"Bottled - Vanilla Latte\",\"price\":125,\"type\":\"bottled_coffee\",\"add_ons\":[]},{\"id\":63,\"item\":\"Bottled - Vanilla Latte\",\"price\":125,\"type\":\"bottled_coffee\",\"add_ons\":[]}]', 10, '2024-11-14 00:08:53', 56, 0, 0, 250);
 
 -- --------------------------------------------------------
 
@@ -444,8 +437,8 @@ CREATE TABLE `register` (
 --
 
 INSERT INTO `register` (`id`, `username`, `email`, `password`, `created_at`, `first_name`, `last_name`, `loyalty_flag`, `address`, `mobile`, `order_count`, `is_admin`, `last_order_id`) VALUES
-(22, 'admin', 'admin@admin.com', '$2y$10$kh13676r9NP84ettvF5CjuLhUBq7V7CUXrnOJW1JA7JOaRCXU9Z9e', '2024-11-05 13:31:28', 'SKT', 'Faker', 1, 'Lagro Lang', '09174211234', 0, 1, 1),
-(51, 'user', 'test@gmail.com', '$2y$10$xcY1TVvg3mKp6qmp2deRHeT4qhO106TIupBd1bZeTguaydvFNDKke', '2024-11-13 10:11:05', NULL, NULL, 1, NULL, NULL, 0, 0, 8),
+(22, 'admin', 'kivik20641@hartaria.com', '$2y$10$kh13676r9NP84ettvF5CjuLhUBq7V7CUXrnOJW1JA7JOaRCXU9Z9e', '2024-11-05 13:31:28', 'SKT', 'Faker', 0, 'Lagro Lang', '09174211234', 0, 1, -1),
+(51, 'user', 'test@gmail.com', '$2y$10$xcY1TVvg3mKp6qmp2deRHeT4qhO106TIupBd1bZeTguaydvFNDKke', '2024-11-13 10:11:05', 'Test', 'Surname', 1, 'Test Address', '09152313939', 0, 0, 8),
 (52, 'donald', 'donald@gmail.com', '$2y$10$bqW1dv5MQ8ISFwSPh8BFFOhOv.ngmSxVCuPxMiq9dIBbdAnecFzDu', '2024-11-13 13:53:39', 'donald234', 'donald', 0, 'donald\n', '1231231', 0, 0, -1),
 (53, 'mac', 'mac@gmail.com', '$2y$10$nhhhC75wFYqrvLOVVhjBXOIXjZQvA3uQgh1.MuHU4WwmIst5nIbQe', '2024-11-13 15:31:02', NULL, NULL, 0, NULL, NULL, 0, 0, -1),
 (54, 'waw', 'waw@gmail.com', '$2y$10$nIChdCrS1C82l/czQuSKlOyk5l/prxYfqCtam4WZozIwHp591TxVi', '2024-11-13 15:35:05', NULL, NULL, 0, NULL, NULL, 0, 0, -1),
@@ -468,24 +461,9 @@ CREATE TABLE `transaction_header` (
   `is_done` int(11) DEFAULT 0,
   `mode_of_pickup` int(11) DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `mobile` varchar(255) DEFAULT NULL
+  `mobile` varchar(255) DEFAULT NULL,
+  `receipt_image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `transaction_header`
---
-
-INSERT INTO `transaction_header` (`id`, `dot`, `ref_id`, `total_price`, `register_id`, `name`, `is_done`, `mode_of_pickup`, `address`, `mobile`) VALUES
-(1, '2024-11-13 23:23:42', NULL, 355, 52, 'donald234 donald', 1, 0, 'donald\n', '1231231'),
-(2, '2024-11-13 23:24:41', '-1', 0, 52, 'donald234 donald', 1, 0, 'donald\n', '1231231'),
-(3, '2024-11-13 23:28:10', NULL, 310, 52, 'donald234 donald', 1, 0, 'donald\n', '1231231'),
-(4, '2024-11-13 23:31:34', NULL, 370, 53, NULL, 1, NULL, NULL, NULL),
-(5, '2024-11-13 23:31:34', NULL, 370, 53, NULL, 1, 0, NULL, NULL),
-(6, '2024-11-13 23:32:51', '-1', 0, 53, NULL, 0, 0, NULL, NULL),
-(7, '2024-11-13 23:35:23', NULL, 45, 54, NULL, 1, 0, NULL, NULL),
-(8, '2024-11-13 23:55:12', NULL, 125, 55, NULL, 1, 0, NULL, NULL),
-(9, '2024-11-13 23:57:49', NULL, 50, 56, NULL, 1, 0, NULL, NULL),
-(10, '2024-11-14 00:08:53', NULL, 250, 56, NULL, 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -500,36 +478,6 @@ CREATE TABLE `transaction_history` (
   `item` varchar(255) DEFAULT NULL,
   `item_price` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `transaction_history`
---
-
-INSERT INTO `transaction_history` (`id`, `transaction_header_id`, `debitable_id`, `item`, `item_price`) VALUES
-(1, 1, 24, 'Iced - Americano 16 Oz', 75),
-(2, 1, 4, 'Caramel Sauce', 10),
-(3, 1, 24, 'Iced - Americano 16 Oz', 75),
-(4, 1, 60, 'Bottled - Craffeccino', 105),
-(5, 1, 11, 'Chocolate Chip Cookies', 45),
-(6, 1, 11, 'Chocolate Chip Cookies', 45),
-(7, 2, 1, 'Single Shot Espresso', 20),
-(8, 3, 26, 'Iced - Craffeccino 16 Oz', 80),
-(9, 3, 61, 'Bottled - Cappuccino', 115),
-(10, 3, 61, 'Bottled - Cappuccino', 115),
-(11, 4, 24, 'Iced - Americano 16 Oz', 75),
-(12, 4, 45, 'Hot - Craffeccino', 80),
-(13, 4, 61, 'Bottled - Cappuccino', 115),
-(14, 4, 75, 'Strawberry Dreamscape', 100),
-(15, 5, 24, 'Iced - Americano 16 Oz', 75),
-(16, 5, 45, 'Hot - Craffeccino', 80),
-(17, 5, 61, 'Bottled - Cappuccino', 115),
-(18, 5, 75, 'Strawberry Dreamscape', 100),
-(19, 6, 26, 'Iced - Craffeccino 16 Oz', 80),
-(20, 7, 11, 'Chocolate Chip Cookies', 45),
-(21, 8, 64, 'Bottled - Spanish Latte', 125),
-(22, 9, 69, 'Wintermelon', 50),
-(23, 10, 63, 'Bottled - Vanilla Latte', 125),
-(24, 10, 63, 'Bottled - Vanilla Latte', 125);
 
 -- --------------------------------------------------------
 
@@ -643,7 +591,7 @@ ALTER TABLE `debitables_coffee_based`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `free_item`
@@ -661,7 +609,7 @@ ALTER TABLE `mission`
 -- AUTO_INCREMENT for table `previous_order`
 --
 ALTER TABLE `previous_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `primary_items`
@@ -673,19 +621,19 @@ ALTER TABLE `primary_items`
 -- AUTO_INCREMENT for table `register`
 --
 ALTER TABLE `register`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `transaction_header`
 --
 ALTER TABLE `transaction_header`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `transaction_history`
 --
 ALTER TABLE `transaction_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vision`

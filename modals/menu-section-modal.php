@@ -82,6 +82,21 @@
                 </ul>
                 </p>
 
+                <p class="text-normal mb-2 pb-2">Upload Proof of Payment: *</p>
+
+                <!-- Button to trigger file input -->
+                <button type="button" class="btn btn-primary bg-dark w-100 mb-2" @click="triggerFileInput">
+                    <i class="fa-solid fa-upload"></i> Upload Receipt: *
+                </button>
+
+                <!-- Hidden file input -->
+                <input type="file" ref="paymentReceipt" @change="handleFileChange" style="display: none;" required />
+
+                <!-- Optionally, display the name of the selected file -->
+                <div v-if="fileName" class="mt-2">
+                    <p><strong>Selected File: </strong>{{ fileName }}</p>
+                </div>
+
                 <p class="text-normal mb-2 pb-2">Payment Method(s): *</p>
 
                 <select class="form-control mb-2" v-model="mode_of_payment">

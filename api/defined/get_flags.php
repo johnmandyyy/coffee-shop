@@ -6,20 +6,19 @@ require_once '../connection.php';
 function executeQuery($query)
 {
     global $pdo;
-
     $stmt = $pdo->prepare($query);
     $stmt->execute();
-
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
 
 }
 
 $_GET_LAST_ORDER_ID = 'SELECT register.last_order_id FROM register WHERE id = ';
-$_GET_COUNT_OF_ORDERS = 'SELECT COUNT(*) FROM previous_order WHERE previous_order.register_id = ';
-$_MODULO_QUERY = 'SELECT COUNT(*) FROM previous_order WHERE previous_order.register_id = ';
+$_GET_COUNT_OF_ORDERS = 'SELECT COUNT(*) FROM previous_order INNER JOIN transaction_header on transaction_header.id = previous_order.transaction_header_id WHERE transaction_header.is_done = 1 and previous_order.register_id = ';
+$_MODULO_QUERY = 'SELECT COUNT(*) FROM previous_order INNER JOIN transaction_header on transaction_header.id = previous_order.transaction_header_id WHERE transaction_header.is_done = 1 and previous_order.register_id = ';
 $_GET_LOYALTY_FLAG = 'SELECT loyalty_flag FROM register WHERE id = ';
 
+//echo $_GET_COUNT_OF_ORDERS;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -29,9 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $id = $_GET['id'];
 
+
+
         $_MODULO_QUERY = $_MODULO_QUERY . $id;
 
-        $MOD = implode(executeQuery($_MODULO_QUERY));
+
+
+        $MOD = implode("", array: executeQuery($_MODULO_QUERY));
 
         if ($MOD === '0') {
             $_MODULO = 1;

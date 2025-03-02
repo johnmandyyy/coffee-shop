@@ -25,16 +25,58 @@ include 'header.php';
                 "address": null,
                 "message": "",
                 "loyalty_flag": 0,
-                "is_admin": 0
+                "is_admin": 0,
+                "order_count": 0
             },
             computed: {},
             watch: {},
+            computed: {
+                checkTrueCount() {
+                    return this.getChecks.filter(value => value === true).length
+                },
+
+                getChecks() {
+                    marks = []
+                    if (this.loyalty_flag === '1') {
+                        for (let i = 0; i < 10; i++) {
+                            marks.push(true)
+                        }
+                    } else {
+
+                        let remaining = 10
+                        const orderCount = parseInt(this.order_count, 10); // Convert order_count to an integer
+                        const result = orderCount / 10;
+                        const tenths = Math.floor((result * 10) % 10);
+
+                        remaining = remaining - tenths
+
+                        if (remaining != 10) {
+
+                            for (let i = 0; i < tenths; i++) {
+                                marks.push(true)
+                            }
+
+                            for (let i = 0; i < remaining; i++) {
+                                marks.push(false)
+                            }
+
+                        } else {
+                            for (let i = 0; i < 10; i++) {
+                                marks.push(true)
+                            }
+                        }
+
+                    }
+                    return marks
+                }
+
+            },
             mounted() {
                 this.getProfileDetails()
+                this.getFlags()
             },
 
             methods: {
-
                 async updateProfile() {
                     const user = await this.getUserDetails()
 
@@ -88,7 +130,20 @@ include 'header.php';
                     }
 
                     return result
-                }
+                },
+
+                async getFlags() {
+
+                    const user = await this.getUserDetails()
+                    const url = '/coffee-shop/api/defined/get_flags.php?id=' + String(user.data.id)
+                    const result = await axios.get(url)
+                    if (result.status === 200) {
+                        this.loyalty_flag = String(result.data.loyalty_flag)
+                        this.order_count = result.data.order_count
+                        return result
+                    }
+                },
+
             },
         });
 

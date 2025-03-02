@@ -9,6 +9,15 @@
 
             <div class="modal-body">
                 <div class="text-center">
+
+                    <span v-if="proof_of_payment !== null">
+                        <p class="fw-bold mt-2">Proof of Payment:</p>
+
+                        <img class="img-fluid mb-2" :src="proof_of_payment">
+
+                    </span>
+
+
                     <span v-for="item in active_order_details">
                         <br>{{ item.item }}
                         <span v-if="item.add_ons">

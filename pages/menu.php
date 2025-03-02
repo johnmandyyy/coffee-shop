@@ -10,10 +10,7 @@ include 'header.php';
 
     <div class="container mt-4">
 
-        <?php include '../partials/pill.php' ?>
-
         <?php include 'menu-section.php' ?>
-
 
     </div>
 
@@ -65,7 +62,9 @@ include 'header.php';
             "qr_ph_reference": null,
             "loyalty_flag": "0",
             "free_item": [],
-            "is_free_flag": false
+            "is_free_flag": false,
+            "fileName": null,
+            "selectedFile": null
         },
 
         computed: {
@@ -121,6 +120,21 @@ include 'header.php';
 
         methods: {
 
+            triggerFileInput() {
+                this.$refs.paymentReceipt.click();
+            },
+
+            // Handle the file selection
+            handleFileChange(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Store the file name
+                    this.fileName = file.name;
+                    this.selectedFile = file
+                    console.log('Selected file:', file);
+                }
+            },
+
             async getFreeItem() {
 
                 const url = '/coffee-shop/api/fetch.php?table=free_item'
@@ -128,6 +142,12 @@ include 'header.php';
 
                 if (result) {
                     this.free_item = result.data
+                }
+
+                const flag = await this.getFlags()
+
+                if (String(flag.data.loyalty_flag) === '1') {
+                    openModal('free_item')
                 }
 
             },
@@ -141,7 +161,6 @@ include 'header.php';
                     this.loyalty_flag = String(result.data.loyalty_flag)
                     return result
                 }
-
             },
 
             async getPreviousOrderHistory() {
@@ -492,7 +511,6 @@ include 'header.php';
                 const last_order = await this.saveLastOrder()
                 const flags = await this.getFlags()
                 const get_last_order = await this.getLastOrder()
-                //console.log(get_last_order)
 
                 if (flags.data.modulo === '0' && flags.data.last_order_id === '-1') {
 
@@ -510,6 +528,9 @@ include 'header.php';
                     console.log('Updating free flag.')
                 }
 
+                const upload_result = await this.uploadReceipt(formatted_debitables[0].transaction_header_id)
+                //this.addReceiptToPayload(formatted_debitables)
+
                 const url = '/coffee-shop/api/insert.php?table=transaction_history';
 
                 try {
@@ -519,6 +540,7 @@ include 'header.php';
                     if (result) {
                         closeModal('items_cart')
                         openModal('universal_modal')
+
                         this.message = 'Order Success your transaction header reference id is ' + String(this.transaction_header_id)
                     }
 
@@ -530,6 +552,41 @@ include 'header.php';
                 await this.getRecommendations()
                 this.resetGenericValues()
 
+                await this.getFreeItem()
+
+            },
+
+            async uploadReceipt(id) {
+                const url = '/coffee-shop/api/defined/upload_receipt.php';
+
+                // Create a new FormData object
+                const formData = new FormData();
+
+                // Append the file to the FormData object
+                formData.append('id', id)
+                formData.append('paymentReceipt', this.selectedFile);
+
+                // You can also append other data if needed
+                // For example:
+                // formData.append('otherData', 'value');
+
+                try {
+                    // Send the form data with the file to the PHP backend
+                    const result = await axios.post(url, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data', // Important for file uploads
+                        },
+                    });
+
+                    return result
+                } catch (error) {
+                    // Handle any errors
+                    console.error('Error uploading file:', error);
+                }
+            },
+
+            addReceiptToPayload(debitables) {
+                console.log('empty')
             },
 
             async freeIsClaimed() {

@@ -11,16 +11,57 @@
         <p class="lead fw-normal">Here you can customize your profile.</p>
 
 
+
+
         <div v-if="is_admin === 0" class="card mt-4">
 
             <div class="card-header">
-                <p class="lead fw-bold mb-0 pb-0">Loyalty Card</p>
+                <p class="lead fw-bold mb-0 pb-0 text-center">Loyalty Card</p>
             </div>
 
             <div class="card-body text-center">
-                <h1 v-if="loyalty_flag === 1" class="display-6 fw-bold">You can claim your free item!</h1>
+
+
+                <div class="table">
+                    <div class="table-responsive">
+                        <table class="table table-borderless text-center">
+                            <tbody>
+                                <tr>
+                                    <td v-for="(check, index) in getChecks" :key="index">
+                                        <span v-if="check === true">
+                                            <h1 class="display-1 text-success">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                            </h1>
+                                        </span>
+                                        <span v-else>
+                                            <h1 class="display-1 text-danger">
+                                                <i class="fa-solid fa-circle-xmark"></i>
+                                            </h1>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+                <div v-if="checkTrueCount === 10">
+                    <h1 class="lead fw-bold">In case you haven't claim your free item, you can clain your free item
+                        after your next purchase.
+                    </h1>
+                </div>
+
+                <div v-if="checkTrueCount !== 10">
+                    <h1 class="lead fw-bold">Keep ordering until there is a free item.</h1>
+                </div>
+
+                <!-- <h1 v-if="loyalty_flag === 1" class="display-6 fw-bold">You can claim your free item!</h1>
                 <h1 v-if="loyalty_flag === 0" class="display-6 fw-bold">Not Yet Activated</h1>
-                <p class="lead  fw-bold text-muted">Minimum of 10 order(s)</p>
+                <p class="lead  fw-bold text-muted">Minimum of 10 order(s)</p> -->
+
+
             </div>
         </div>
 

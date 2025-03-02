@@ -16,7 +16,6 @@ include 'header.php';
 
     <div class="container mt-4">
 
-        <?php include '../partials/pill.php' ?>
 
         <?php include 'feedback-section.php' ?>
 
@@ -25,11 +24,12 @@ include 'header.php';
 
     <script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
 
+
+
+
 </body>
 
 
-
-<?php include '../partials/footer.php' ?>
 
 </html>
 
