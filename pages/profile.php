@@ -32,6 +32,7 @@ include 'header.php';
             watch: {},
             computed: {
                 checkTrueCount() {
+                    console.log(this.getChecks.filter(value => value === true).length)
                     return this.getChecks.filter(value => value === true).length
                 },
 
@@ -42,10 +43,12 @@ include 'header.php';
                             marks.push(true)
                         }
                     } else {
-
+                        // console.log(this.order_count)
                         let remaining = 10
                         const orderCount = parseInt(this.order_count, 10); // Convert order_count to an integer
+
                         const result = orderCount / 10;
+
                         const tenths = Math.floor((result * 10) % 10);
 
                         remaining = remaining - tenths
@@ -60,10 +63,18 @@ include 'header.php';
                                 marks.push(false)
                             }
 
-                        } else {
-                            for (let i = 0; i < 10; i++) {
-                                marks.push(true)
+                        }
+                        else {
+                            if (orderCount != 0) {
+                                for (let i = 0; i < 10; i++) {
+                                    marks.push(true)
+                                }
+                            } else {
+                                for (let i = 0; i < 10; i++) {
+                                    marks.push(false)
+                                }
                             }
+
                         }
 
                     }

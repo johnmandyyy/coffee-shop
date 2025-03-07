@@ -77,37 +77,43 @@ if (isset($_SESSION['user_id']) && $_SESSION['user_id'] !== null) {
         },
         computed: {},
         watch: {},
-        mounted() {
-
-        },
+        mounted() { },
 
         methods: {
-
+            emailValidator(email) {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return emailRegex.test(email);
+            },
+            validatePassword(password) {
+                const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
+                return passwordRegex.test(password);
+            },
             async login() {
-
                 const url = '/coffee-shop/api/insert.php?table=register'
 
-                const result = await axios.post(url, {
-                    "username": this.username,
-                    "password": this.password,
-                    "email": this.email
-                })
-
-                if (result.status === 201) {
-                    this.message = 'You have successfully created an account!'
-
+                if (this.emailValidator(this.email) && this.validatePassword(this.password)) {
+                    const result = await axios.post(url, {
+                        "username": this.username,
+                        "password": this.password,
+                        "email": this.email
+                    })
+                    if (result.status === 201) {
+                        this.message = 'You have successfully created an account!'
+                        this.username = ''
+                        this.password = ''
+                        this.email = ''
+                        openModal('universal_modal')
+                    } else {
+                        this.message = 'There was a problem on creating your account.'
+                        openModal('universal_modal')
+                    }
+                } else {
+                    this.email = ''
                     this.username = ''
                     this.password = ''
-                    this.email = ''
-
-                    openModal('universal_modal')
-                    // window.location.href = "/coffee-shop/pages/login.php"
-                } else {
-                    this.message = 'There was a problem on creating your account.'
+                    this.message = 'Email must be valid and password should contain at least 8 characters with 1 capital letter and special character. Maximum of 20 character(s)'
                     openModal('universal_modal')
                 }
-
-
 
             }
         },
